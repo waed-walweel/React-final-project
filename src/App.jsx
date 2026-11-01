@@ -1,19 +1,30 @@
 import { Routes, Route } from 'react-router-dom'
-import Register from "./assets/pages/Register/Register"
-import Login from "./assets/pages/Login/Login"
+import MainLayout from './Layout/MainLayout'
+import AuthLayout from './Layout/AuthLayout'
+import Home from './pages/Home/Home'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
+import ForgotPas from './pages/ForgotPas/ForgotPas'
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+      
+      <Route element={<MainLayout />}>
+        <Route path="/home" element={<Home />} />
+     
+      </Route>
+
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPas />} />
+      </Route>
     </Routes>
   )
 }
 
 export default App
-
-
 
 
 

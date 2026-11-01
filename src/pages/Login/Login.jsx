@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import { Link } from 'react-router-dom' 
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup" 
-import {loginSchema} from '../../../validations/authSchema' 
+import {loginSchema} from '../../validations/authSchema' 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -23,9 +23,9 @@ export default function Login() {
   try {
     const response = await axios.post('https://knowledgeshop.runasp.net/api/auth/Account/Login', data);
     setServerSuccess(true);
-    navigate('/home');
+    navigate('/');
   } catch(error) { 
-    console.log(error);
+    console.log(error.response.data);
     setServerError("Login failed. Please try again.");
   }
 };
@@ -39,17 +39,18 @@ export default function Login() {
           </Typography> 
 
           <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
-            <TextField label="Email" fullWidth margin="normal" {...login('email')} error={!!errors.email} helperText={errors.email?.message}></TextField> 
-            <TextField label="Password" type="password" fullWidth margin="normal" {...login('password')} error={!!errors.password} helperText={errors.password?.message}></TextField>
-          </Box> 
-
+            <TextField label="Email" fullWidth margin="normal" {...register('email')} error={!!errors.email} helperText={errors.email?.message}></TextField> 
+            <TextField label="Password" type="password" fullWidth margin="normal" {...register('password')} error={!!errors.password} helperText={errors.password?.message}></TextField> 
+            
           <Button  type="submit" fullWidth  variant="contained" sx={{mt: 2, backgroundColor: '#000000', '&:hover': {backgroundColor: '#1c2024'}}}
           disabled={isSubmitting}>
             
             {isSubmitting?"Loading...":"Login"}
           </Button> 
+          </Box> 
+
           <Typography variant="body2" sx={{textAlign: 'center', mt: 2}}>
-            Forgot your password? <Link to="/login">Click here</Link>
+            Forgot your password? <Link to="/forgot-password">Click here</Link>
           </Typography>
         </Box> 
       </Container>

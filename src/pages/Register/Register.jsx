@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import { Link } from 'react-router-dom' 
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup" 
-import registerSchema from '../../../validations/authSchema' 
+import registerSchema from '../../validations/authSchema' 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -26,7 +26,7 @@ export default function Register() {
     setServerSuccess(true);
     navigate('/login');
   } catch(error) { 
-    console.log(error);
+    console.log(error.response.data);
     setServerError("Registration failed. Please try again.");
   }
 };
