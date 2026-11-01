@@ -1,22 +1,19 @@
-import react from 'react' 
-import axios from 'axios' 
+import Alert from '@mui/material/Alert'
+import CircularProgress from '@mui/material/CircularProgress'
+import useCategories from '../../hook/useCategories'
 
+export default function Categories() {
+  const { data, isLoading, isError } = useCategories()
 
-export default function Categories() { 
-    const [categories, setCategories] = useState([])
-   const getCategories = async () => { 
+  if (isLoading) return <CircularProgress color="inherit" />
+  if (isError) return <Alert severity="error">Failed to load categories</Alert>
 
-   const response = await axios.get('https://knowledgeshop.runasp.net/api/Categories') 
-   console.log()
-   setCategories(response.data.response.data)
-   } 
-   useEffect(() => {
-    getCategories()
-   }, []) 
-
-return (
+  return (
     <div>
-        <h1>Categories</h1>
+      <h1>Categories</h1>
+      {data.data.map((category) => (
+        <p key={category.id}>{category.name}</p>
+      ))}
     </div>
-)
+  )
 }

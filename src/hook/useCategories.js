@@ -7,9 +7,10 @@ export default function useCategories({ page = 1, limit = 4 } = {}) {
     queryFn: async () => {
       const { data } = await axios.get('https://knowledgeshop.runasp.net/api/Categories', {
         params: { page, limit },
+        headers: { 'Accept-Language': 'en' },
       })
       return data.response
     },
     placeholderData: keepPreviousData,
   })
-} 
+}
