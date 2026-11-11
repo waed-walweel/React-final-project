@@ -5,7 +5,9 @@ import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import ForgotPas from './pages/ForgotPas/ForgotPas' 
-import Categories from './components/Categories/Categories'
+import Categories from './components/Categories/Categories' 
+import Products from './pages/Products/Products'
+import ProductDetails from './pages/ProductDetails/ProductDetails'
 
 function App() {
   return (
@@ -14,8 +16,9 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path="/home" element={<Home />} />  
         <Route path="/" element={<Home />} />
-        <Route path="/categories" element={<Categories />} />
-     
+        <Route path="/categories" element={<Categories />} /> 
+         <Route path="/products" element={<Products />} /> 
+         <Route path="/products/:id" element={<ProductDetails />} />
       </Route>
 
       <Route element={<AuthLayout />}>
