@@ -16,7 +16,8 @@ export default function ProductDetails() {
   const token = useAuthStore((state) => state.token)
   const navigate = useNavigate()
   const { id } = useParams() 
-  const {mutate: addToCart,isPending: addToCartPending} = useAddToCart();
+  const {mutate: addToCart,isPending: addToCartPending} = useAddToCart(); 
+  const addGuestItem = useGuestCartStore((state) => state.addItem)
   const { data: product, isLoading, isError } = useProduct(id) 
   const handleAddToCart = () => {
   if (!token) {
