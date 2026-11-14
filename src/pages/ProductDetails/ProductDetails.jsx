@@ -6,12 +6,25 @@ import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
 import Rating from '@mui/material/Rating'
 import Typography from '@mui/material/Typography'
-import { Link, useParams } from 'react-router-dom'
-import useProduct from '../../hook/useProductDetails'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import useProduct from '../../hook/useProductDetails' 
+import useAddToCart from '../../hook/useAddToCart' 
+import useAuthStore from '../../store/useAuthStore'
 
-export default function ProductDetails() {
-  const { id } = useParams()
-  const { data: product, isLoading, isError } = useProduct(id)
+export default function ProductDetails() { 
+  const token = useAuthStore((state) => state.token)
+  const navigate = useNavigate()
+  const { id } = useParams() 
+  const {mutate: addToCart,isPending: addToCartPending} = useAddToCart();
+  const { data: product, isLoading, isError } = useProduct(id) 
+  const handleAddToCart = () => {
+    if (!token) {
+      navigate('/cart');
+      return; 
+    } 
+    addToCart(product.id);
+
+  }
 
   if (isLoading) {
     return (
@@ -75,7 +88,7 @@ export default function ProductDetails() {
             variant="contained"
             size="large"
             sx={{ bgcolor: 'text.primary', color: 'background.default', px: 5, '&:hover': { bgcolor: 'text.secondary' } }}
-          >
+            onClick={handleAddToCart}>
             Add to Cart
           </Button>
         </Box>

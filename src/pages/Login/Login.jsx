@@ -10,9 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {loginSchema} from '../../validations/authSchema' 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios' 
+import useAuthStore from '../../store/useAuthStore'
+
+
 export default function Login() { 
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login) 
     const [serverError, setServerError] = useState(null);
   const [serverSuccess, setServerSuccess] = useState(false);
   const {register,handleSubmit,formState: {errors,isSubmitting}} = useForm({
@@ -26,8 +30,10 @@ export default function Login() {
     navigate('/');
   } catch(error) { 
     console.log(error.response.data);
-    setServerError("Login failed. Please try again.");
+    setServerError("Login failed. Please try again."); 
+
   }
+  login(response.data.accessToken);
 };
 
   return (
