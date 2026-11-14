@@ -10,6 +10,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import useProduct from '../../hook/useProductDetails' 
 import useAddToCart from '../../hook/useAddToCart' 
 import useAuthStore from '../../store/useAuthStore'
+import useGuestCartStore from '../../store/useGuestCartStore'
 
 export default function ProductDetails() { 
   const token = useAuthStore((state) => state.token)
@@ -18,13 +19,13 @@ export default function ProductDetails() {
   const {mutate: addToCart,isPending: addToCartPending} = useAddToCart();
   const { data: product, isLoading, isError } = useProduct(id) 
   const handleAddToCart = () => {
-    if (!token) {
-      navigate('/cart');
-      return; 
-    } 
-    addToCart(product.id);
-
+  if (!token) {
+    addGuestItem(product)
+    navigate('/cart')
+    return
   }
+  addToCart(product.id, { onSuccess: () => navigate('/cart') })
+}
 
   if (isLoading) {
     return (

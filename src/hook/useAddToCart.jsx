@@ -10,7 +10,7 @@ export default function useAddToCart() {
     mutationFn: async (productId) => {
       const { data } = await axios.post(
         'https://knowledgeshop.runasp.net/api/Carts',
-        { productId, count: 1 },
+        { productId: productId, count: 1 },
         { headers: { 'Accept-Language': 'en', Authorization: `Bearer ${token}` } },
       )
       return data

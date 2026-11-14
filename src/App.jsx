@@ -8,6 +8,7 @@ import ForgotPas from './pages/ForgotPas/ForgotPas'
 import Categories from './components/Categories/Categories' 
 import Products from './pages/Products/Products'
 import ProductDetails from './pages/ProductDetails/ProductDetails'
+import Cart from './pages/Cart/Cart'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/categories" element={<Categories />} /> 
          <Route path="/products" element={<Products />} /> 
          <Route path="/products/:id" element={<ProductDetails />} />
+         <Route path="/cart" element={<Cart />} />
       </Route>
 
       <Route element={<AuthLayout />}>
