@@ -20,4 +20,25 @@ export const loginSchema = Yup.object({
   .matches(/[0-9]/, 'Password must contain at least one number')
   .matches(/[@$!%*?&]/, 'Password must contain at least one special character')
 }); 
+ 
 
+export const emailSchema = Yup.object({
+  email: Yup.string().email('Invalid email format').required('Email is required'),
+})
+
+export const codeSchema = Yup.object({
+  code: Yup.string().required('Code is required').matches(/^\d+$/, 'Digits only'),
+})
+
+export const newPasswordSchema = Yup.object({
+  newPassword: Yup.string()
+    .required('Password is required')
+    .min(6, 'At least 6 characters')
+    .matches(/[A-Z]/, 'Needs an uppercase letter')
+    .matches(/[a-z]/, 'Needs a lowercase letter')
+    .matches(/[0-9]/, 'Needs a number')
+    .matches(/[@$!%*?&]/, 'Needs a special character'),
+  confirmPassword: Yup.string()
+    .required('Please confirm your password')
+    .oneOf([Yup.ref('newPassword')], 'Passwords do not match'),
+})
